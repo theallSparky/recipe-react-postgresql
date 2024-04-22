@@ -16,5 +16,9 @@ const searchRecipes = async (searchTerm: string, page: number) => {
 
   try {
     const searchResponse = await fetch(url);
-  } catch (error) {}
+    const resultsJSON = await searchResponse.json();
+    return resultsJSON;
+  } catch (error) {
+    console.log(error);
+  }
 };
