@@ -14,6 +14,7 @@ const App = () => {
     try {
       const recipes = await api.searchRecipes(searchTerm, 1);
       setRecipes(recipes.results);
+      pageNumber.current = 1;
     } catch (e) {
       console.log(e);
     }
