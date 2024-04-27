@@ -55,7 +55,12 @@ const App = () => {
         View More
       </button>
 
-      {selectedRecipe ? <RecipeModal /> : null}
+      {selectedRecipe ? (
+        <RecipeModal
+          recipeId={selectedRecipe.title.toString()}
+          onClose={() => setSelectedRecipe(undefined)}
+        />
+      ) : null}
     </div>
   );
 };

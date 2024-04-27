@@ -5,7 +5,7 @@ export interface Recipe {
   imageType: string;
 }
 
-export interface recipeSummary {
+export interface RecipeSummary {
   id: number;
   title: string;
   summary: string;

@@ -1,8 +1,30 @@
-import { useState } from "react";
-import { recipeSummary } from "../types";
+import { useEffect, useState } from "react";
+import { RecipeSummary } from "../types";
+import * as RecipeAPI from "../api";
 
-export const RecipeModal = () => {
-  const [recipeSummary, setSummaryRecipe] = useState<recipeSummary>("");
+interface Props {
+  recipeId: string;
+  onClose: () => void;
+}
+
+export const RecipeModal = ({ recipeId, onClose }: Props) => {
+  const [recipeSummary, setRecipeSummary] = useState<RecipeSummary>();
+
+  useEffect(() => {
+    const fetchRecipeSummary = async () => {
+      try {
+        const summaryRecipe = await RecipeAPI.getRecipeSummary(recipeId);
+        setRecipeSummary(summaryRecipe);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRecipeSummary();
+  }, [recipeId]);
+
+  if (!recipeSummary) {
+    return <></>;
+  }
 
   return (
     <>
@@ -10,12 +32,12 @@ export const RecipeModal = () => {
       <div className="modal">
         <div className="modal-content">
           <div className="modal-header">
-            <h2>{recipeSummary?.id}</h2>
-            <span className="clote-btn">&times;</span>
+            <h2>{recipeSummary.title}</h2>
+            <span className="clote-btn" onClick={onClose}>
+              &times;
+            </span>
           </div>
-          <p dangerouslySetInnerHTML={{ __html: recipeSummary?.summary }}>
-            RECIPE SUMMARY
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: recipeSummary.summary }}></p>
         </div>
       </div>
     </>
