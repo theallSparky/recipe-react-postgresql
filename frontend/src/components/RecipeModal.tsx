@@ -33,7 +33,7 @@ export const RecipeModal = ({ recipeId, onClose }: Props) => {
         <div className="modal-content">
           <div className="modal-header">
             <h2>{recipeSummary.title}</h2>
-            <span className="clote-btn" onClick={onClose}>
+            <span className="close-btn" onClick={onClose}>
               &times;
             </span>
           </div>
